@@ -27,8 +27,9 @@ MAAS 1.8以降の新しいバージョンをインストールしたい場合は
 - ノードイベントログがWeb UIに追加された
 - maas-proxyが使われるようになった
 - Windows Server,CentOS,Suse Linuxのサポート
-- カスタムイメージをサポート[^1]
+- カスタムイメージをサポート(注1)
 
 詳細は[changelog](http://maas.ubuntu.com/docs/changelog.html#id31)を参照
 
-[^1]: [コマンド](https://maas.ubuntu.com/docs/bootsources.html)でカスタムイメージの登録とインポートを実行する必要がある。
+----
+(注1) [コマンド](https://maas.ubuntu.com/docs/bootsources.html)でカスタムイメージの登録とインポートを実行する必要がある。
