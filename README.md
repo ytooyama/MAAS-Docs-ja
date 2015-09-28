@@ -1,22 +1,34 @@
 # MAAS-Docs-ja
+Canonical MAASの日本語版ドキュメント（非公式）
 
-これはなに
 
-Canonical MAASの日本語のドキュメントです。
+## インストールの流れ
+インストール方法は以下やこのリポジトリーで公開されているドキュメントを参照。9/28/2015現在、Ubuntu Trusty (14.04.3)ではMAAS 1.7系のバージョンのパッケージが標準で用意されているようです。
 
-MAASについて
+- <http://maas.ubuntu.com/docs1.7/install.html>
 
-- <https://maas.ubuntu.com> (公式)
-- <http://blog.virtualtech.jp/tooyama/1288> (VTJ-Blog)
+MAAS 1.8以降の新しいバージョンをインストールしたい場合は、MAAS Stable PPAを追加する必要があります。PPAのパッケージは新しい安定版が公開されるとなくなるので注意が必要です。
 
-公式のドキュメント
+- <https://launchpad.net/~maas-maintainers/+archive/ubuntu/stable>
 
-- <http://maas.ubuntu.com/docs1.7/>
 
-問い合わせ
+## MAAS 1.8の変更点（概要）
 
-- <http://virtualtech.jp/contact/>
+- Web UIのデザインが変わった
+- MAAS Region ControllerがApache非依存になった
+- Node & Storage タグの管理をWeb UIでできるようになった
+- VMware ESXi 5.5を仮想ノードのホストとして使えるようになった
 
-お礼
+詳細は[changelog](http://maas.ubuntu.com/docs/changelog.html#id12)を参照
 
-- じゃがりこを贈ってあげると喜びます。
+## MAAS 1.7の変更点（概要）
+
+- イメージの管理UIが追加
+- ノードイベントログがWeb UIに追加された
+- maas-proxyが使われるようになった
+- Windows Server,CentOS,Suse Linuxのサポート
+- カスタムイメージをサポート[^1]
+
+詳細は[changelog](http://maas.ubuntu.com/docs/changelog.html#id31)を参照
+
+[^1]: [コマンド](https://maas.ubuntu.com/docs/bootsources.html)でカスタムイメージの登録とインポートを実行する必要がある。
