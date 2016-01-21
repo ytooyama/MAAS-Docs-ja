@@ -1,12 +1,10 @@
 #Ubuntu MAAS 1.9(ESXiベース)のインストール
 
-最終更新日: 2016/01/19 18:30
+最終更新日: 2016/01/21 10:30
 
 
 このドキュメントはVMware ESXiにUbuntu MAAS環境を作成して、仮想サーバーをMAASで管理する手順を示します。
-本例ではMAAS 1.9、VMware ESXi 5.5 Update 3を使っています。
-
-なお、執筆日時点(2016年1月19日)ではMAAS 1.9.0はリリース版ではありません。
+本例ではMAAS 1.9.0+bzr4533、VMware ESXi 5.5 Update 3を使っています。
 
 
 ##手順概要
@@ -34,7 +32,7 @@
 
 ##ESXiについて
 
-MAAS 1.8以降はESXi 5.5、Linux KVMに対応しており、ハイパーバイザー上の仮想マシンをMAASの仮想ノードの一つとして管理可能です。マイナーバージョンはなんでも構わないため、本例ではESXi 5.5 Update 3を利用します。MAASがESXiと連携するにはvSphere APIが利用できる必要があります。そのため、有償ライセンスが適用されたESXiである必要があります。
+MAAS 1.8以降はESXi 5.5、Linux KVMの管理ができる様になっており、ハイパーバイザー上の仮想マシンをMAASの仮想ノードの一つとして管理可能です。ESXiのマイナーバージョンはなんでも構わないため、本例ではESXi 5.5 Update 3を利用します。MAASがESXiと連携するにはvSphere APIが利用できる必要があります。そのため、有償(もしくは評価版)ライセンスが適用されたESXiである必要があります。
 
 
 ##ネットワークスイッチについて
@@ -96,11 +94,6 @@ $ sudo apt-get install software-properties-common python-software-properties
 $ sudo add-apt-repository ppa:maas/stable
 ````
 
-執筆日時点では安定版に1.9.0のパッケージがないため、今回はテスト版(不安定版)のパッケージをインストールします。テスト版のパッケージは試す日によっては正常に動かない場合があります。
-
-````
-$ sudo add-apt-repository ppa:maas/proposed
-````
 
 リポジトリーを追加したので、リポジトリー情報を更新します。
 
@@ -171,8 +164,8 @@ API protocol  | https
 
 物理ノードを追加するには適切なものをPower typeに指定します(ex. IPMI)。ESXiの仮想マシンを追加するにはVMwareを指定、KVMの仮想マシンを追加するには[Virshを指定](http://askubuntu.com/questions/292061/how-to-configure-maas-to-be-able-to-boot-virtual-machines)します。
 
-- 設定が正しいと、次のパワーオンするとOSのプロビジョニングが始まる
-- 起動後はログなどを確認
+- 設定が正しければ、次回パワーオンするとOSのプロビジョニングが始まります
+- 起動後はログなどを確認します
 
 ````
 $ sudo tail -f /var/log/maas/maas.log
