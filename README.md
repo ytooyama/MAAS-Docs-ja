@@ -1,4 +1,7 @@
 # MAAS-Docs-ja
+
+Last Update: 2016/1/21
+
 Canonical MAASの日本語版ドキュメント（非公式）
 
 
