@@ -7,9 +7,9 @@ Canonical MAASの日本語版ドキュメント（非公式）
 
 - <http://maas.ubuntu.com/docs1.7/install.html>
 
-MAAS 1.8以降の新しいバージョンをインストールしたい場合は、MAAS Stable PPAを追加する必要があります。PPAのパッケージは新しい安定版が公開されるとなくなるので注意が必要です。
+MAAS 1.9以降の新しいバージョンをインストールしたい場合は、MAAS Stable PPAを追加する必要があります。PPAのパッケージは新しい安定版が公開されるとなくなるので注意が必要です。
 
-- <https://launchpad.net/~maas-maintainers/+archive/ubuntu/stable>
+- <https://launchpad.net/~maas/+archive/ubuntu/stable>
 
 
 ## MAAS 1.8の変更点（概要）
