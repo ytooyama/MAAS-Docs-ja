@@ -15,6 +15,15 @@ MAAS 1.9以降の新しいバージョンをインストールしたい場合は
 - <https://launchpad.net/~maas/+archive/ubuntu/stable>
 
 
+## MAAS 1.9の変更点（概要）
+
+- Software RAIDサポート
+- LVMサポート
+- Bcacheサポート
+- VLAN,Bondingなどのサポート
+- SubnetのVLAN IDや使用率の表示が可能に
+
+
 ## MAAS 1.8の変更点（概要）
 
 - Web UIのデザインが変わった
