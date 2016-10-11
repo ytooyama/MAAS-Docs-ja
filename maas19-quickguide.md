@@ -4,8 +4,8 @@ Company: 日本仮想化技術
 #Ubuntu MAAS 1.9<br>クイックセットアップガイド
 
 <div class="title">
-バージョン：0.9.0<br>
-2016年1月21日<br>
+バージョン：0.9.1<br>
+2016年10月11日<br>
 <br>
 日本仮想化技術株式会社
 </div>
@@ -17,6 +17,7 @@ Company: 日本仮想化技術
 |バージョン|更新日|更新内容|
 |:---|:---|:---|
 |0.9.0|2016/01/21|初版|
+|0.9.1|2016/10/11|MAASノードにインストールするlibvirt-binについて追記|
 
 ##対象のバージョン
 
@@ -174,9 +175,27 @@ MAASホストにMAAS 1.9でESXi VMをマネージメントするために必要�
 maas$ sudo apt-get -y install libvirt-bin
 ````
 
+virshコマンドを使うために上記パッケージをインストールしたので、自動起動したサービスは停止するように設定します。
+
+####Upstart
+
+````
+maas$ echo "manual" > /etc/init/libvirt-bin.override
+````
+
+####Systemd
+
+````
+maas$ sudo systemctl stop libvirt-bin.service
+maas$ sudo systemctl disable libvirt-bin.service
+````
+
+
+
 KVMホストにはssh-askpass-gnomeを入れます。
 
-````kvm$ sudo apt-get install kvm virt-manager ssh-askpass-gnome
+````
+kvm$ sudo apt-get install kvm virt-manager ssh-askpass-gnome
 ````
 
 MAASユーザーとディレクトリーの作成、Bashへの切り替えを行います。
