@@ -1,25 +1,26 @@
 Title: Ubuntu MAAS 1.9 クイックセットアップガイド
 Company: 日本仮想化技術
 
-#Ubuntu MAAS 1.9<br>クイックセットアップガイド
+# Ubuntu MAAS 1.9<br>クイックセットアップガイド
 
 <div class="title">
-バージョン：0.9.1<br>
-2016年10月11日<br>
+バージョン：0.9.2<br>
+2017年06月26日<br>
 <br>
 日本仮想化技術株式会社
 </div>
 
 <!-- BREAK -->
 
-##変更履歴
+## 変更履歴
 
 |バージョン|更新日|更新内容|
 |:---|:---|:---|
 |0.9.0|2016/01/21|初版|
 |0.9.1|2016/10/11|MAASノードにインストールするlibvirt-binについて追記|
+|0.9.2|2017/06/26|レイアウト崩れの修正|
 
-##対象のバージョン
+## 対象のバージョン
 
 API                 | Version              
 ------------------- | ------------------- 
@@ -28,15 +29,17 @@ ESXi                | 5.5 Update 3
 libvirtd            | 1.2.2
 KVMホストのKernel   | 3.13.0-76-generic
 
+これ以降のバージョンでも同様に動作すると思います。
+
 <!-- BREAK -->
 
-##目次
+## 目次
 <!--TOC max3-->
 
 <!-- BREAK -->
 
 
-##手順概要
+## 手順概要
 
 このドキュメントはUbuntu MAAS環境を作成して、仮想サーバーや物理サーバーをMAASで管理する手順を示します。
 本例ではMAAS 1.9.0+bzr4533を使っています。
@@ -58,17 +61,17 @@ KVMホストのKernel   | 3.13.0-76-generic
 ※本例ではvCenter Serverのセットアップについては触れません。
 
 
-##ESXiについて
+## ESXiについて
 
 MAAS 1.8以降はESXi 5.5、Linux KVMの管理ができる様になっており、ハイパーバイザー上の仮想マシンをMAASの仮想ノードの一つとして管理可能です。ESXiのマイナーバージョンはなんでも構わないため、本例ではESXi 5.5 Update 3を利用します。MAASがESXiと連携するにはvSphere APIが利用できる必要があります。そのため、有償(もしくは評価版)ライセンスが適用されたESXiである必要があります。
 
-##ネットワークスイッチについて
+## ネットワークスイッチについて
 
 何を使っても構いませんが、STPの設定...Ciscoスイッチで言うところのPortFastはenableにしてください。[詳細はこちら](https://maas.ubuntu.com/docs/install.html#configure-switches-on-the-network)。
 
 <!-- BREAK -->
 
-##イメージサーバーの作成
+## イメージサーバーの作成
 
 MAASでデプロイするOSのイメージは通常「maas.ubnntu.com」サーバーから取得しますが、ローカル環境にイメージサーバーのミラーを作成できます。詳細手順については公式の情報を確認してください。
 
@@ -115,7 +118,7 @@ MAASをインストール後にMAASの設定を開き、「Boot Images」のSync
 
 <!-- BREAK -->
 
-##MAASのインストール
+## MAASのインストール
 
 MAAS 1.9をインストールする前にUbuntu Server 14.04をインストールします。インストール後はアップデートを行い、最新の状態にします。インストールしたUbuntu ServerにMAAS 1.9をインストールするため、MAASのPPAを追加します。
 
@@ -152,7 +155,7 @@ $ sudo apt-get install maas
 [Web UIにアクセス](https://maas.ubuntu.com/docs/install.html#post-install-tasks)して、管理ユーザーのセットアップを実行します。
 
 
-###ESXi VMをMAASで利用する
+### ESXi VMをMAASで利用する
 
 MAASホストにMAAS 1.9でESXi VMをマネージメントするために必要なパッケージをインストールします。
 
@@ -167,7 +170,7 @@ ESXiで必要なだけの仮想マシンを次の設定で作成します。
 - ESXi VMのBIOSを起動して、「1.PXEブート、2.HDDブート」の順に設定
 
 
-###KVM VMをMAASで利用する
+### KVM VMをMAASで利用する
 
 MAASホストにMAAS 1.9でESXi VMをマネージメントするために必要なパッケージをインストールします。
 
@@ -177,13 +180,13 @@ maas$ sudo apt-get -y install libvirt-bin
 
 virshコマンドを使うために上記パッケージをインストールしたので、自動起動したサービスは停止するように設定します。
 
-####Upstart
+#### Upstart
 
 ````
 maas$ echo "manual" > /etc/init/libvirt-bin.override
 ````
 
-####Systemd
+#### Systemd
 
 ````
 maas$ sudo systemctl stop libvirt-bin.service
@@ -236,7 +239,7 @@ maas$ sudo -u maas virsh -c qemu+ssh://ytooyama@192.168.10.11/system list --all
 
 <!-- BREAK -->
 
-##MAASのセットアップ
+## MAASのセットアップ
 
 MAASをデプロイツールとして利用するため、残りの作業を実施します。必要なセットアップ項目は次の通りです。
 
@@ -261,7 +264,7 @@ MAASをデプロイツールとして利用するため、残りの作業を実�
 
 <!-- BREAK -->
 
-##MAASに仮想ノードを登録する
+## MAASに仮想ノードを登録する
 
 MAASにノードを追加するには次のように行います。
 
@@ -315,14 +318,14 @@ $ sudo tail -f /var/log/maas/maas.log
 
 <!-- BREAK -->
 
-##参考情報
+## 参考情報
 
-###VMにNested Virtualizationを設定する
+### ESXi VMにNested Virtualizationを設定する
 
 `/vmfs/volumes/[your-datastore]/[your-vm]/[your-vm].vmx`に「vhv.enable = "TRUE"」を追記してVMを起動します。
 OS起動後、Linuxなら`lsmod |grep kvm`や`kvm-ok`などで確認します。
 
-###ESXi VMのUUIDを確認する
+### ESXi VMのUUIDを確認する
 
 UUIDはESXiコンソール上で次のようにコマンドを実行すると確認できます。
 VMのUUIDはvmxファイルに書かれているので、grepすると目的の項目を見つけられます。
@@ -332,8 +335,8 @@ esxi-host # cat /vmfs/volumes/datastore/esx-vm1/esx-vm1.vmx |egrep "displayName|
 uuid.bios = "56 4d 8f cd e3 38 19 71-c3 93 81 29 64 eb 9a cc"
 ````
 
-###MAASにUUIDを設定する
+### MAASにESXi VMのUUIDを設定する
 
-VMのUUIDがわかったら、UUIDを「8-4-4-4-12」表記に直してMAASに設定します。
+ESXi VMのUUIDがわかったら、UUIDを「8-4-4-4-12」表記に直してMAASに設定します。
 
 (例) 564d8fcd-e338-1971-c393-812964eb9acc
